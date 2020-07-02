@@ -4,4 +4,5 @@ dist
 .next
 tmp
 **/config/*.json
-!**/config/.gitkeep
+**/log/*
+!**/log/.gitkeep

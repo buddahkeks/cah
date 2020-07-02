@@ -7,9 +7,12 @@ export default class Card {
     public type: CardType;
     public content: string;
 
-    constructor (cid: number, type: CardType, content: string) {
+    constructor (cid: number, type: CardType, content: string);
+    constructor (cid: number, type: string, content: string);
+
+    constructor (cid: number, type: CardType|string, content: string) {
         this.cid = cid;
-        this.type = type;
+        this.type = typeof type === 'string' ? (type === 'A' ? CardType.Answer : CardType.Question) : type;
         this.content = content;
     }
 };

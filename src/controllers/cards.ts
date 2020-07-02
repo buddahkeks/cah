@@ -12,13 +12,16 @@ function getNext (req: express.Request, res: express.Response): void {
 function getCategories (req: express.Request, res: express.Response): void {
     Category.getAll()
             .then(cs => utils.respond(res, cs))
-            .catch(e => utils.respond(res, 500, 'Internal server error!'));
+            .catch(e => utils.respond(res, 500, 'Internal server error!', e));
 }
 
 function getCardsFrom (req: express.Request, res: express.Response): void {
     Category.get(+req.params.id)
-            .then(c => utils.respond(res, c))
-            .catch(e => utils.respond(res, 500, 'Internal server error!'));
+            .then(c => c ? c.getCards()
+                            .then(cs => utils.respond(res, cs))
+                            .catch(e => utils.respond(res, 500, 'Internal server error!', e))
+                         : utils.respond(res, 404, 'Unknown category!'))
+            .catch(e => utils.respond(res, 500, 'Internal server error!', e));
 }
 
 export default {

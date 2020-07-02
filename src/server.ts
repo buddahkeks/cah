@@ -3,6 +3,7 @@ import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import conf from './config/server.json';
 import { users, cards, games } from './routes';
+import utils from './utils';
 
 const app: express.Application = express();
 
@@ -33,10 +34,7 @@ app.get('/34S73.-399', (req: express.Request, res: express.Response) => {
 });
 
 app.use('/', (req: express.Request, res: express.Response) => {
-    res.status(404).send({
-        success: false,
-        msg: 'Resource not found!',
-    });
+    utils.respond(res, 404, 'Resource not found!');
 });
 
 app.listen(conf.port, conf.hostname, () => console.log(` [SERVER]: Listening on http://${conf.hostname}:${conf.port} ... `));

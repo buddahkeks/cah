@@ -25,7 +25,7 @@ function restrict (req: express.Request, res: express.Response, next: express.Ne
             if (!u) return utils.respond(res, 400, 'Unknown user!');
             req.user = u;
             next();
-        }).catch(err => utils.respond(res, 500, 'Internal server error!'));
+        }).catch(err => utils.respond(res, 500, 'Internal server error!', err));
     });
 }
 

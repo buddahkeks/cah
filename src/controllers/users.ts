@@ -11,7 +11,7 @@ function getUser (req: express.Request, res: express.Response): void {
             if (!u) return utils.respond(res, 404, 'User wasn\'t found!');
             utils.respond(res, u);
         })
-        .catch(e => utils.respond(res, 500, 'Internal server error!'));
+        .catch(e => utils.respond(res, 500, 'Internal server error!', e));
 }
 
 function login (req: express.Request, res: express.Response): void {
@@ -31,7 +31,7 @@ function login (req: express.Request, res: express.Response): void {
                       utils.respond(res, 400, 'Wrong password!');
                   });
         })
-        .catch(e => utils.respond(res, 500, 'Internal server error!'));
+        .catch(e => utils.respond(res, 500, 'Internal server error!', e));
 }
 
 export default {
