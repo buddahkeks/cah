@@ -10,14 +10,14 @@ export default class Index extends React.Component {
                         <img src="/media/wave.svg" alt="" />
                         <img src="/media/wave2.svg" alt="" className="wave2" />
                     </div>
-                    <div className="login">
-                        <h1>Login</h1>
+                    <div className="register">
+                        <h1>Register</h1>
                         <form>
                             <input type="text" placeholder="Username" autoFocus />
                             <input type="password" placeholder="●●●●●●●●●●●●●" />
-                            <input type="submit" value="Login" />
+                            <input type="submit" value="Register" />
                         </form>
-                        <p>Not a member? <Link href="/register">Register</Link></p>
+                        <p>Already a member? <Link href="/login">Login</Link></p>
                     </div>
                 </article>
 
@@ -62,7 +62,7 @@ export default class Index extends React.Component {
                         width: 100%;
                     }
 
-                    .login {
+                    .register {
                         position: absolute;
                         left: 50%;
                         top: 50%;
