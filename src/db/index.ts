@@ -21,9 +21,21 @@ export function findmany (query: string, params: any[], con?: mysql.Connection):
     return new Promise((resolve, reject) => {
         const gCon: boolean = Boolean(con);
         if (!gCon) con = connect();
-        con!.query(query, params, (err: mysql.MysqlError | null, res: any[]) => {
+        con!.query(query, params, (err: mysql.MysqlError|null, res: any[]) => {
             if (err) reject(err);
             resolve(res);
+        });
+        if (!gCon) close(con!);
+    });
+}
+
+export function insert (query: string, params: any[], con?: mysql.Connection): Promise<void> {
+    return new Promise((resolve, reject) => {
+        const gCon: boolean = Boolean(con);
+        if (!gCon) con = connect();
+        con!.query(query, params, (err: mysql.MysqlError|null) => {
+            if (err) reject(err);
+            resolve();
         });
         if (!gCon) close(con!);
     });
@@ -34,4 +46,5 @@ export default {
     close,
     findone,
     findmany,
+    insert,
 };

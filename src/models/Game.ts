@@ -20,6 +20,12 @@ export default class Game {
         });
     }
 
+    public join (u: User): boolean {
+        if (this.players.map(u => u.uid).includes(u.uid)) return false;
+        this.players.push(u);
+        return true;
+    }
+
     public static randomName (games?: Array<Game>): Promise<string> {
         return new Promise((resolve, reject) => {
             utils.randomLine(path.resolve(__dirname, '../config/adjectives.txt'))

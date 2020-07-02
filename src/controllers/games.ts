@@ -37,8 +37,16 @@ function getUsers (req: express.Request, res: express.Response): void {
     });
 }
 
+function joinGame (req: express.Request, res: express.Response): void {
+    const g: Game|null = _findGame(req.params.name);
+    if (!g) return utils.respond(res, 400, 'Unknown game!');
+    if (g.join(req.user!)) return utils.respond(res, {});
+    utils.respond(res, 400, 'Already in game!');
+}
+
 export default {
+    getAllGames,
     newGame,
     getUsers,
-    getAllGames,
+    joinGame,
 };

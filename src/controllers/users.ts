@@ -22,13 +22,30 @@ function login (req: express.Request, res: express.Response): void {
             bcrypt.compare(req.body.pwd, u.pwd)
                   .then(m => {
                       if (m) {
-                          let tkn: string = jwt.sign({ uname: req.body.uname, }, conf.secret, { expiresIn: '24h', });
+                          const tkn: string = jwt.sign({ uname: req.body.uname, }, conf.secret, { expiresIn: '24h', });
                           res.cookie('tkn', tkn);
-                          return utils.respond(res, {
-                              tkn: tkn,
-                          });
+                          return utils.respond(res, { tkn, });
                       }
                       utils.respond(res, 400, 'Wrong password!');
+                  });
+        })
+        .catch(e => utils.respond(res, 500, 'Internal server error!', e));
+}
+
+function register (req: express.Request, res: express.Response): void {
+    if (!req.body.uname || !req.body.pwd) return utils.respond(res, 400, 'Invalid body!');
+    User.get(req.body.uname)
+        .then(u => {
+            if (u) return utils.respond(res, 400, 'User already exists!');
+            bcrypt.hash(req.body.pwd, 12)
+                  .then(h => {
+                      User.insert(req.body.uname, h)
+                          .then(() => {
+                              const tkn: string = jwt.sign({ uname: req.body.uname, }, conf.secret, { expiresIn: '24h', });
+                              res.cookie('tkn', tkn);
+                              return utils.respond(res, { tkn, });
+                          })
+                          .catch(e => utils.respond(res, 500, 'Internal server error!', e));
                   });
         })
         .catch(e => utils.respond(res, 500, 'Internal server error!', e));
@@ -37,4 +54,5 @@ function login (req: express.Request, res: express.Response): void {
 export default {
     getUser,
     login,
+    register,
 };

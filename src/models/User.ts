@@ -13,10 +13,20 @@ export default class User {
 
     public static get (uname: string): Promise<User|null> {
         return new Promise((resolve, reject) => {
-            db.findone('SELECT uid, pwd FROM users WHERE uname = ?', [uname]).then(res => {
+            db.findone('SELECT uid, pwd FROM users WHERE uname = ?', [uname])
+              .then(res => {
                 if (!res) resolve(null);
                 resolve(new User(res.uid, uname, res.pwd));
-            }).catch(err => reject(err));
+              })
+              .catch(reject);
+        });
+    }
+
+    public static insert (uname: string, pwd: string): Promise<void> {
+        return new Promise((resolve, reject) => {
+            db.insert('INSERT INTO users (uname, pwd) VALUES (?, ?)', [uname, pwd])
+              .then(resolve)
+              .catch(reject);
         });
     }
 
