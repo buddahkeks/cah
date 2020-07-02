@@ -6,12 +6,12 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rimraf dist/* && tsc",
-    "build:next": "next build",
+    "build:next": "next build public/",
     "dev": "nodemon",
     "dev:nodemon": "ts-node src/server.ts",
-    "dev:next": "next",
+    "dev:next": "next public/",
     "start": "node dist/server.js",
-    "start:next": "next start"
+    "start:next": "next start public/"
   },
   "keywords": [],
   "author": "",
