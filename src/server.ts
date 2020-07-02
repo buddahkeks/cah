@@ -2,7 +2,7 @@ import express from 'express';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import conf from './config/server.json';
-import { users, cards } from './routes';
+import { users, cards, games } from './routes';
 
 const app: express.Application = express();
 
@@ -11,6 +11,7 @@ app.use(bodyParser.json());
 
 app.use('/users', users);
 app.use('/cards', cards);
+app.use('/games', games);
 
 app.get('/34S73.-399', (req: express.Request, res: express.Response) => {
     res.status(418).send(`

@@ -16,6 +16,8 @@ This is a Node & Next.js implementation of the popular "Cards Against Humanity" 
 
 * [Official CAH website](https://cardsagainsthumanity.com/)
 * [Next.js](https://nextjs.org/)
+* [English Nouns](http://www.desiquintans.com/nounlist)
+* [English Adjectives](https://gist.github.com/hugsy/8910dc78d208e40de42deb29e62df913)
 
 ---
 

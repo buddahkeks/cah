@@ -19,4 +19,11 @@ export default class User {
             }).catch(err => reject(err));
         });
     }
+
+    public toJSON (): object {
+        return {
+            uid: this.uid,
+            uname: this.uname,
+        };
+    }
 };

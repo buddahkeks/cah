@@ -9,10 +9,7 @@ function getUser (req: express.Request, res: express.Response): void {
     User.get(req.params.uname)
         .then(u => {
             if (!u) return utils.respond(res, 404, 'User wasn\'t found!');
-            utils.respond(res, {
-                uid: u?.uid,
-                uname: u?.uname,
-            });
+            utils.respond(res, u);
         })
         .catch(e => utils.respond(res, 500, 'Internal server error!'));
 }
@@ -23,7 +20,16 @@ function login (req: express.Request, res: express.Response): void {
         .then(u => {
             if (!u) return utils.respond(res, 404, 'User wasn\'t found!');
             bcrypt.compare(req.body.pwd, u.pwd)
-                  .then(m => m ? utils.respond(res, { tkn: jwt.sign({ uname: req.body.uname, }, conf.secret), }) : utils.respond(res, 400, 'Wrong password!'));
+                  .then(m => {
+                      if (m) {
+                          let tkn: string = jwt.sign({ uname: req.body.uname, }, conf.secret, { expiresIn: '24h', });
+                          res.cookie('tkn', tkn);
+                          return utils.respond(res, {
+                              tkn: tkn,
+                          });
+                      }
+                      utils.respond(res, 400, 'Wrong password!');
+                  });
         })
         .catch(e => utils.respond(res, 500, 'Internal server error!'));
 }

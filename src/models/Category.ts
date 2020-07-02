@@ -9,6 +9,14 @@ export default class Category {
         this.name = name;
     }
 
+    public static get (id: number): Promise<Category> {
+        return new Promise((resolve, reject) => {
+            db.findone('SELECT name FROM categories WHERE cid = ?', [id])
+              .then(c => resolve(new Category(id, c.name)))
+              .catch(e => reject(e));
+        });
+    }
+
     public static getAll (): Promise<Array<Category>> {
         return new Promise((resolve, reject) => {
             db.findmany('SELECT cid, name FROM categories', [])
