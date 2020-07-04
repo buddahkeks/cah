@@ -31,6 +31,7 @@ export default class Index extends React.Component {
                         margin: auto auto;
                         padding: 0;
                     }
+                    
                     input {
                         font-size: 17px;
                         color: #273036;
@@ -69,7 +70,6 @@ export default class Index extends React.Component {
                         transform: translate(-50%, -50%);
                     }
                     
-
                     .waves {
                         position: relative;
                         overflow: hidden;
@@ -86,15 +86,12 @@ export default class Index extends React.Component {
                         text-align: center;
                     }
 
-
-
                     h1 { 
                         text-align: center;
                         top: -10%;
                         font-size: 30px;
                         margin-bottom: 30px;
-                    }
-                    
+                    } 
                 `}</style>
             </>
         );
