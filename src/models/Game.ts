@@ -1,14 +1,18 @@
 import path from 'path'; 
-import User from "./User";
+import User from './User';
+import Player from './Player';
 import utils from '../utils';
 
 export default class Game {
-    public players: Array<User>;
+    public players: Array<Player>;
     public name!: string;
     
-    constructor (u: User, p2?: string) {
-        this.players = [u];
-        this.name = p2 || '';
+    constructor(u: User, name?: string);
+    constructor(p: Player, name?: string);
+
+    constructor (u: User|Player, name?: string) {
+        this.players = u instanceof Player ? [u] : [Player.of(u)];
+        this.name = name || '';
     }
 
     public genName (games: Array<Game>): Promise<string> {
@@ -22,7 +26,7 @@ export default class Game {
 
     public join (u: User): boolean {
         if (this.players.map(u => u.uid).includes(u.uid)) return false;
-        this.players.push(u);
+        this.players.push(Player.of(u));
         return true;
     }
 

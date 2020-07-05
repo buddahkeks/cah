@@ -1,6 +1,7 @@
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
+import cors from 'cors';
 import conf from './config/server.json';
 import { users, cards, games } from './routes';
 import utils from './utils';
@@ -9,6 +10,7 @@ const app: express.Application = express();
 
 app.use(cookieParser());
 app.use(bodyParser.json());
+app.use(cors());
 
 app.use('/users', users);
 app.use('/cards', cards);
