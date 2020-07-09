@@ -31,7 +31,7 @@ export class AppProvider extends React.Component<
   AppProviderProps,
   AppProviderState
 > {
-  private static baseURL: string = "http://localhost:8080";
+  private static baseURL: string = "http://localhost/api";
 
   constructor(props) {
     super(props);
