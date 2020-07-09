@@ -1,5 +1,12 @@
-# Cards Against Humanity
-_Shocked noises_
+<p align="center">
+    <img src="https://svgsilh.com/svg_v2/145116.svg" width="125px" />
+</p>
+
+<h1 align="center">Cards Against Humanity</h1>
+
+<p align="center">
+    <img alt="GitHub" src="https://img.shields.io/github/license/buddahkeks/cah"> <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/buddahkeks/cah"> <img alt="GitHub issues" src="https://img.shields.io/github/issues-raw/buddahkeks/cah"> <img alt="GitHub stars" src="https://img.shields.io/github/stars/buddahkeks/cah?style=social">
+</p>
 
 ---
 
