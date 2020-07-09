@@ -25,12 +25,9 @@ interface AppProviderProps {
   children: React.ReactElement | React.ReactElement[];
 }
 
-interface AppProviderState extends AppContextProps {}
+interface AppProviderState extends AppContextProps {};
 
-export class AppProvider extends React.Component<
-  AppProviderProps,
-  AppProviderState
-> {
+export class AppProvider extends React.Component<AppProviderProps, AppProviderState> {
   private static baseURL: string = "http://localhost/api";
 
   constructor(props) {
@@ -38,7 +35,7 @@ export class AppProvider extends React.Component<
     this.state = {
       authenticated: false,
       login: this.login.bind(this),
-      register: this.login.bind(this),
+      register: this.register.bind(this),
       logout: this.logout.bind(this),
       uname: this.uname.bind(this),
     };

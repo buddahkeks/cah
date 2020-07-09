@@ -51,8 +51,13 @@ function register (req: express.Request, res: express.Response): void {
         .catch(e => utils.respond(res, 500, 'Internal server error!', e));
 }
 
+function status (req: express.Request, res: express.Response): void {
+    utils.respond(res, { });
+}
+
 export default {
     getUser,
     login,
     register,
+    status,
 };
