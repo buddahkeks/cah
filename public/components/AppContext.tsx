@@ -5,6 +5,7 @@ export interface AppContextProps {
   tkn?: string;
   uname: () => string;
   login: (uname: string, pwd: string) => Promise<void>;
+  register: (uname: string, pwd: string) => Promise<void>;
   logout: () => Promise<void>;
 }
 
@@ -14,6 +15,7 @@ const AppContext: React.Context<AppContextProps> = React.createContext<
   authenticated: false,
   uname: () => null,
   login: () => new Promise((resolve, reject) => resolve()),
+  register: () => new Promise((resolve, reject) => resolve()),
   logout: () => null,
 });
 
@@ -36,6 +38,7 @@ export class AppProvider extends React.Component<
     this.state = {
       authenticated: false,
       login: this.login.bind(this),
+      register: this.login.bind(this),
       logout: this.logout.bind(this),
       uname: this.uname.bind(this),
     };
@@ -53,6 +56,31 @@ export class AppProvider extends React.Component<
   private login(uname: string, pwd: string): Promise<void> {
     return new Promise((resolve, reject) => {
       fetch(`${AppProvider.baseURL}/users/login`, {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ uname, pwd }),
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          if (!res.success) return reject(res.msg);
+          localStorage.setItem("tkn", res.body.tkn);
+          this.setState(
+            {
+              authenticated: true,
+              tkn: res.body.tkn as string,
+            },
+            () => resolve()
+          );
+        })
+        .catch(reject);
+    });
+  }
+
+  private register(uname: string, pwd: string): Promise<void> {
+    return new Promise((resolve, reject) => {
+      fetch(`${AppProvider.baseURL}/users/register`, {
         method: "post",
         headers: {
           "Content-Type": "application/json",
