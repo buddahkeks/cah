@@ -3,6 +3,8 @@ import User from './User';
 import Player from './Player';
 import utils from '../utils';
 
+export const games: Array<Game> = [];
+
 export default class Game {
     public players: Array<Player>;
     public name!: string;
@@ -36,7 +38,7 @@ export default class Game {
                  .then(a => {
                      utils.randomLine(path.resolve(__dirname, '../config/nouns.txt'))
                           .then(n => {
-                              const name: string = a + '-' + n;
+                              const name: string = a.replace('\\r', '').trim() + '-' + n.replace('\\r', '').trim();
                               if (games?.map(g => g.name).includes(name)) return this.randomName(games).then(n => resolve(n)).catch(e => reject(e));
                               resolve(name);
                             })

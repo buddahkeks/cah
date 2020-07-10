@@ -6,6 +6,8 @@ import { users, cards, games } from './routes';
 import next from 'next';
 import Server from 'next/dist/next-server/server/next-server';
 import path from 'path';
+import http from 'http';
+import socket from './utils/socket';
 
 const server: Server = next({ dev: process.env.NODE_ENV !== 'production', });
 const handle = server.getRequestHandler();
@@ -13,6 +15,7 @@ const handle = server.getRequestHandler();
 server.prepare()
       .then(() => {
         const app: express.Application = express();
+        const httpServer: http.Server = http.createServer(app);
 
         app.use(cookieParser());
         app.use(bodyParser.json());
@@ -47,7 +50,8 @@ server.prepare()
 
         app.get('*', (req, res) => handle(req, res));
 
-        app.listen(conf.port, conf.hostname, () => console.log(`[SERVER]: Listening on http://${conf.hostname}:${conf.port} ... `));
+        socket(httpServer);
+        httpServer.listen(conf.port, conf.hostname, () => console.log(`[SERVER]: Listening on http://${conf.hostname}:${conf.port} ... `));
       })
       .catch(e => {
           console.error(e.stack);

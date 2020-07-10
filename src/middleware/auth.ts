@@ -12,7 +12,7 @@ declare global {
     }
 }
 
-interface CAHToken {
+export interface CAHToken {
     uname: string;
 };
 
