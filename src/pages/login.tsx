@@ -69,7 +69,7 @@ export default class Index extends React.Component<void, IndexState> {
                     <input
                       ref={(e) => (this.passInput = e)}
                       type="password"
-                      placeholder="●●●●●●●●●●●●●"
+                      placeholder="Password"
                     />
                     <input type="submit" value="Login" />
                   </form>
@@ -100,7 +100,7 @@ export default class Index extends React.Component<void, IndexState> {
                   display: flex;
                   flex-direction: column;
                   justify-content: space-between;
-                  height: 100px;
+                  height: 110px;
                   width: 300px;
                   margin: auto auto;
                   padding: 0;
@@ -143,6 +143,7 @@ export default class Index extends React.Component<void, IndexState> {
                   left: 50%;
                   top: 50%;
                   transform: translate(-50%, -50%);
+                  z-index: 2;
                 }
 
                 .waves {

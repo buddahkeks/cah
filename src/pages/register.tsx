@@ -12,6 +12,7 @@ interface IndexState {
 export default class Index extends React.Component<void, IndexState> {
   private userInput: HTMLInputElement;
   private passInput: HTMLInputElement;
+  private passConfInput: HTMLInputElement;
 
   public context: AppContextProps;
 
@@ -25,6 +26,8 @@ export default class Index extends React.Component<void, IndexState> {
     const [uname, pwd] = [this.userInput.value.trim(), this.passInput.value];
     if (!uname || !pwd)
       return this.showError("Please enter username and password!");
+    if(this.passInput != this.passConfInput)
+      return this.showError("The passwords didn't match");
     this.context
       .register(uname, pwd)
       .then(() => {
@@ -69,7 +72,12 @@ export default class Index extends React.Component<void, IndexState> {
                     <input
                       ref={(e) => (this.passInput = e)}
                       type="password"
-                      placeholder="●●●●●●●●●●●●●"
+                      placeholder="Password"
+                    />
+                    <input
+                      ref={(e) => (this.passConfInput = e)}
+                      type="password"
+                      placeholder="Confirm Password"
                     />
                     <input type="submit" value="Register" />
                   </form>
@@ -100,7 +108,7 @@ export default class Index extends React.Component<void, IndexState> {
                   display: flex;
                   flex-direction: column;
                   justify-content: space-between;
-                  height: 100px;
+                  height: 140px;
                   width: 300px;
                   margin: auto auto;
                   padding: 0;
@@ -143,6 +151,7 @@ export default class Index extends React.Component<void, IndexState> {
                   left: 50%;
                   top: 50%;
                   transform: translate(-50%, -50%);
+                  z-index: 2;
                 }
 
                 .waves {
