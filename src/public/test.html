@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test</title>
+</head>
+<body>
+    <h1>Hey, hey!</h1>
+    <script src="/socket.io.js"></script>
+    <script>
+        const socket = io('/games');
+        socket.on('connect', () => console.log('Socket connected ... '));
+        socket.on('disconnect', () => console.log('Socket disconnected ... '));
+        socket.on('error', e => window.alert(`Socket connection failed: "${e}" ... `));
+        window.socket = socket;
+</script>
+</body>
+</html>

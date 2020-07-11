@@ -1,8 +1,6 @@
 import express from 'express';
-import Game from '../models/Game';
+import Game, { games } from '../models/Game';
 import utils from '../utils';
-
-const games: Array<Game> = [];
 
 function _findGame (name: string): Game|null {
     for (const g of games)
