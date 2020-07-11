@@ -1,4 +1,6 @@
 import React from "react";
+import cookie from 'js-cookie';
+import io from 'socket.io-client';
 
 export interface AppContextProps {
   authenticated: boolean;
@@ -9,9 +11,7 @@ export interface AppContextProps {
   logout: () => Promise<void>;
 }
 
-const AppContext: React.Context<AppContextProps> = React.createContext<
-  AppContextProps
->({
+const AppContext: React.Context<AppContextProps> = React.createContext<AppContextProps>({
   authenticated: false,
   uname: () => null,
   login: () => new Promise((resolve, reject) => resolve()),
@@ -42,12 +42,7 @@ export class AppProvider extends React.Component<AppProviderProps, AppProviderSt
   }
 
   public componentDidMount() {
-    let tkn: string = localStorage.getItem("tkn") || undefined;
-    this.setState({
-      authenticated: Boolean(tkn),
-      tkn: tkn,
-    });
-    this.isLoggedIn();
+    this.checkAuthState();
   }
 
   private login(uname: string, pwd: string): Promise<void> {
@@ -62,7 +57,7 @@ export class AppProvider extends React.Component<AppProviderProps, AppProviderSt
         .then((res) => res.json())
         .then((res) => {
           if (!res.success) return reject(res.msg);
-          localStorage.setItem("tkn", res.body.tkn);
+          // cookie will be set automatically ...
           this.setState(
             {
               authenticated: true,
@@ -87,7 +82,6 @@ export class AppProvider extends React.Component<AppProviderProps, AppProviderSt
         .then((res) => res.json())
         .then((res) => {
           if (!res.success) return reject(res.msg);
-          localStorage.setItem("tkn", res.body.tkn);
           this.setState(
             {
               authenticated: true,
@@ -113,8 +107,16 @@ export class AppProvider extends React.Component<AppProviderProps, AppProviderSt
     });
   }
 
-  private isLoggedIn(): void {
-    // TODO: implement
+  private checkAuthState(): void {
+    fetch(`${AppProvider.baseURL}/users/status`)
+      .then(res => res.json())
+      .then(res => {
+        if (!res.success) return;
+        this.setState({
+          authenticated: true,
+          tkn: cookie.get('tkn')
+        });
+      });
   }
 
   private uname(): string {

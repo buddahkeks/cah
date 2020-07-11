@@ -10,10 +10,7 @@ function _findGame (name: string): Game|null {
 
 function getAllGames (req: express.Request, res: express.Response): void {
     utils.respond(res, {
-        games: games.map(g => ({
-            name: g.name,
-            players: g.players.length,
-        })),
+        games: games.map(g => g.toJSON()),
     });
 }
 
