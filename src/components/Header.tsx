@@ -18,12 +18,14 @@ export default class Header extends React.Component {
                 <h1>Cards Against Humanity</h1>
               </Link>
               {this.context.authenticated ? (
-                <div>
-                  {ctx.uname()}
-                  <i>
-                    <FontAwesomeIcon icon={faUser} />
-                  </i>
-                </div>
+                <Link href="/dashboard">
+                  <div>
+                    {ctx.uname()}
+                    <i>
+                      <FontAwesomeIcon icon={faUser} />
+                    </i>
+                  </div>
+                </Link>
               ) : (
                 <Link href="/login">
                   <div>Login</div>
@@ -67,6 +69,7 @@ export default class Header extends React.Component {
 
                 div i {
                   font-size: 1.8em;
+                  margin-left: 5px;
                   vertical-align: middle;
                 }
               `}</style>

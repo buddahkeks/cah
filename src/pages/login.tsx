@@ -1,5 +1,6 @@
 import React, { FormEvent } from "react";
 import Link from "next/link";
+import Router from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 import { AppConsumer, AppContextProps } from "../components/AppContext";
@@ -28,8 +29,7 @@ export default class Index extends React.Component<void, IndexState> {
     this.context
       .login(uname, pwd)
       .then(() => {
-        // TODO: added logged in stuff ...
-        console.log(this.context);
+        Router.push('/dashboard');
       })
       .catch((e) => this.showError(e));
   }
@@ -54,8 +54,8 @@ export default class Index extends React.Component<void, IndexState> {
             <>
               <article>
                 <div className="waves">
-                  <img src="/media/wave.svg" alt="" />
-                  <img src="/media/wave2.svg" alt="" className="wave2" />
+                  <img src="/media/wave.svg" />
+                  <img src="/media/wave2.svg" className="wave2" />
                 </div>
                 <div className="login">
                   <h1>Login</h1>

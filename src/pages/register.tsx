@@ -1,5 +1,6 @@
 import React, { FormEvent } from "react";
 import Link from "next/link";
+import Router from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 import { AppConsumer, AppContextProps } from "../components/AppContext";
@@ -31,8 +32,7 @@ export default class Index extends React.Component<void, IndexState> {
     this.context
       .register(uname, pwd)
       .then(() => {
-        // TODO: added logged in stuff ...
-        console.log(this.context);
+        Router.push('/dashboard');
       })
       .catch((e) => this.showError(e));
   }

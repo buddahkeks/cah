@@ -1,13 +1,16 @@
 import React from "react";
-import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGavel, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faGavel } from "@fortawesome/free-solid-svg-icons";
 
-export default class Index extends React.Component {
+interface CzarGameBoardProps {
+  style?: {[key: string]: string};
+}
+
+export default class CzarGameBoard extends React.Component<CzarGameBoardProps> {
   render() {
     return (
       <>
-        <div className="article">
+        <div className="article" style={this.props.style}>
           <div className="question-card">Test Text</div>
           <div className="scoreboard">
             <table>
@@ -132,4 +135,4 @@ export default class Index extends React.Component {
       </>
     );
   }
-}
+};
